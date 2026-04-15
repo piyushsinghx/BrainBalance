@@ -20,4 +20,4 @@ full-stack machine learning website that predicts stress levels (Low/Medium/High
 
 ## Contributors
 - Bharvi
-- Piyush
+- Piyush Kumar Singh

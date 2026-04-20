@@ -105,17 +105,18 @@ function showResults(result) {
   document.getElementById('stressLevel').textContent = stressLevel;
   document.getElementById('burnoutRisk').textContent = burnoutRisk;
 
-  // Color the stress card
-  const stressCard = document.getElementById('stressCard');
-  stressCard.className = 'result-card';
-  stressCard.classList.add(stressLevel.toLowerCase());
+  // Flip and color stress card
+  const stressCardBack = document.getElementById('stressCardBack');
+  stressCardBack.className = 'flip-card-back ' + stressLevel.toLowerCase();
 
-  // Color the burnout card
-  const burnoutCard = document.getElementById('burnoutCard');
-  burnoutCard.className = 'result-card';
-  if (burnoutRisk.includes('Low')) burnoutCard.classList.add('low');
-  else if (burnoutRisk.includes('Moderate')) burnoutCard.classList.add('medium');
-  else burnoutCard.classList.add('high');
+  // Flip and color burnout card
+  const burnoutCardBack = document.getElementById('burnoutCardBack');
+  burnoutCardBack.className = 'flip-card-back';
+  if (burnoutRisk.includes('Low')) burnoutCardBack.classList.add('low');
+  else if (burnoutRisk.includes('Moderate')) burnoutCardBack.classList.add('medium');
+  else burnoutCardBack.classList.add('high');
+
+  
 
   // Show recommendations
   const recList = document.getElementById('recommendationsList');
@@ -180,6 +181,15 @@ function showResults(result) {
   const resultSection = document.getElementById('resultSection');
   resultSection.style.display = 'block';
   resultSection.scrollIntoView({ behavior: 'smooth' });
+
+  // Trigger flips with stagger AFTER section is visible
+  setTimeout(() => document.getElementById('stressCard').classList.add('flipped'), 300);
+  setTimeout(() => document.getElementById('burnoutCard').classList.add('flipped'), 600);
+  if (result.xpEarned) {
+    setTimeout(() => document.getElementById('xpCardInner').classList.add('flipped'), 900);
+  }
+
+
 
   // Request notification permission for future alerts
   if ('Notification' in window && Notification.permission === 'default') {
@@ -426,6 +436,9 @@ function resetForm() {
   });
 
   // Reset plan and badges
+  // Reset card flips
+  document.getElementById('stressCard').classList.remove('flipped');
+  document.getElementById('burnoutCard').classList.remove('flipped');
   document.getElementById('planBox').style.display = 'none';
   document.getElementById('newBadgesBox').style.display = 'none';
   document.getElementById('alertBanner').style.display = 'none';

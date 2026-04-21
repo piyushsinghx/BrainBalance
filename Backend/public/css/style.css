@@ -1409,3 +1409,23 @@ footer {
   background: var(--danger-light);
   border-color: var(--danger);
 }
+
+/* ═══════════════════════════════════════
+   LIVE EMOJI
+   ═══════════════════════════════════════ */
+#liveEmoji {
+  font-size: 3.5rem;
+  margin-bottom: 0.75rem;
+  display: block;
+  transition: all 0.4s ease;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.1));
+  animation: floatEmoji 3s ease-in-out infinite;
+}
+
+@keyframes floatEmoji {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+
+

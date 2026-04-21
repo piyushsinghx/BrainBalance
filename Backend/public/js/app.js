@@ -3,6 +3,53 @@
 //   Form handling, results, navigation
 // ===================================
 
+
+
+
+// ═══════════════════════════════════════
+// LIVE EMOJI FACE
+// ═══════════════════════════════════════
+function updateEmoji() {
+  const sleep     = parseFloat(document.getElementById('sleep').value);
+  const work      = parseFloat(document.getElementById('work').value);
+  const screen    = parseFloat(document.getElementById('screen').value);
+  const moodEl    = document.querySelector('input[name="mood"]:checked');
+  const mood      = moodEl ? parseInt(moodEl.value) : 3;
+  const deadlines = parseInt(document.getElementById('deadlines').value);
+
+  let score = 0;
+  score += sleep     >= 7  ? 2 : sleep     >= 5 ? 1 : 0;
+  score += work      <= 8  ? 2 : work      <= 11 ? 1 : 0;
+  score += screen    <= 3  ? 2 : screen    <= 6  ? 1 : 0;
+  score += mood      >= 4  ? 2 : mood      === 3 ? 1 : 0;
+  score += deadlines <= 4  ? 2 : deadlines <= 6  ? 1 : 0;
+
+  const emoji = score >= 8 ? '😄'
+              : score >= 6 ? '🙂'
+              : score >= 4 ? '😐'
+              : score >= 2 ? '😟'
+              : '😩';
+
+  const el = document.getElementById('liveEmoji');
+  if (el && el.textContent !== emoji) {
+    el.style.transform = 'scale(1.3)';
+    setTimeout(() => {
+      el.textContent = emoji;
+      el.style.transform = 'scale(1)';
+    }, 150);
+  }
+}
+
+// Attach emoji listeners to all inputs
+['sleep', 'work', 'screen', 'caffeine', 'deadlines', 'social'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', updateEmoji);
+});
+document.querySelectorAll('input[name="mood"]').forEach(r =>
+  r.addEventListener('change', updateEmoji));
+
+
+
 // Last prediction data (used by chat, report, plan)
 let lastPrediction = null;
 let lastInputData = null;

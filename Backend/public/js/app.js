@@ -5,6 +5,43 @@
 
 
 
+// ═══════════════════════════════════════
+// STICKY PROGRESS BAR
+// ═══════════════════════════════════════
+const progressBar = document.getElementById('progressBar');
+const tracked = {
+  sleep: false, work: false, screen: false,
+  mood: false, exercise: false,
+  caffeine: false, deadlines: false, social: false
+};
+
+function updateProgress() {
+  const done = Object.values(tracked).filter(Boolean).length;
+  progressBar.style.width = (done / Object.keys(tracked).length * 100) + '%';
+}
+
+['sleep', 'work', 'screen', 'caffeine', 'deadlines', 'social'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', () => { tracked[id] = true; updateProgress(); });
+});
+document.querySelectorAll('input[name="mood"]').forEach(r =>
+  r.addEventListener('change', () => { tracked.mood = true; updateProgress(); }));
+document.querySelectorAll('input[name="exercise"]').forEach(r =>
+  r.addEventListener('change', () => { tracked.exercise = true; updateProgress(); }));
+
+// ═══════════════════════════════════════
+// CONFETTI ON LOW STRESS
+// ═══════════════════════════════════════
+function fireConfetti() {
+  confetti({
+    particleCount: 130,
+    spread: 80,
+    origin: { y: 0.6 },
+    colors: ['#2d6a4f', '#52b788', '#b7e4c7', '#d8f3dc', '#ffffff']
+  });
+}
+
+
 
 // ═══════════════════════════════════════
 // LIVE EMOJI FACE
@@ -224,10 +261,18 @@ function showResults(result) {
   // Show alert banner for high stress
   showAlertBanner(stressLevel);
 
-  // Show and scroll
+// Show and scroll
   const resultSection = document.getElementById('resultSection');
   resultSection.style.display = 'block';
   resultSection.scrollIntoView({ behavior: 'smooth' });
+
+  // Confetti for low stress
+  if (stressLevel === 'Low') fireConfetti();
+
+  // Fill progress bar to 100% on submit
+  progressBar.style.width = '100%';
+
+  
 
   // Trigger flips with stagger AFTER section is visible
   setTimeout(() => document.getElementById('stressCard').classList.add('flipped'), 300);

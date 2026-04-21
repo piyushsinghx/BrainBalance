@@ -1429,3 +1429,18 @@ footer {
 
 
 
+/* ═══════════════════════════════════════
+   STICKY PROGRESS BAR
+   ═══════════════════════════════════════ */
+#progressBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), #52b788);
+  z-index: 9999;
+  transition: width 0.4s ease;
+  border-radius: 0 2px 2px 0;
+  pointer-events: none;
+}

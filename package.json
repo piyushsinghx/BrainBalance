@@ -1,0 +1,31 @@
+{
+  "name": "brainbalance",
+  "version": "1.0.0",
+  "description": "full-stack machine learning website that predicts stress levels (Low/Medium/High) and burnout risk based on user lifestyle inputs such as sleep, work hours, mood, and screen time.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/piyushsinghx/BrainBalance.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/piyushsinghx/BrainBalance/issues"
+  },
+  "homepage": "https://github.com/piyushsinghx/BrainBalance#readme",
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.0",
+    "pdfkit": "^0.15.1"
+  }
+}

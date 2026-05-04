@@ -4,10 +4,10 @@
 //   Express + MongoDB + AI + ML
 // ===================================
 
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
 const connectDB = require('./config/db');
 
 const app = express();
@@ -60,8 +60,9 @@ app.get('/{*path}', (req, res) => {
 });
 
 // ── Start Server ──
-app.listen(PORT, () => {
-  console.log(`
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`
 ╔════════════════════════════════════════╗
 ║   🧠 BrainBalance Server Running      ║
 ║   http://localhost:${PORT}               ║
@@ -77,5 +78,9 @@ app.listen(PORT, () => {
 ║   ✅ Voice Input                       ║
 ║   ✅ PWA Support                       ║
 ╚════════════════════════════════════════╝
-  `);
-});
+    `);
+  });
+}
+
+// Export for Vercel serverless functions
+module.exports = app;
